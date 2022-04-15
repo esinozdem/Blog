@@ -14,5 +14,8 @@ namespace EntityLayer.Concrete
         public string CategoryName { get; set; }
         public string CategoryDescription { get; set; }
         public bool CategoryStatus { get; set; }
+
+        //bir category'nin birden fazla blogu olabilir.
+        public List<Blog> Blogs { get; set; }
     }
 }
