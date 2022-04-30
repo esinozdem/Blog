@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BusinessLayer.Concrete;
+using DataAccessLayer.EntityFramework;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,9 +10,18 @@ namespace CoreDemo.Controllers
 {
     public class BlogController : Controller
     {
+        BlogManeger bm = new BlogManeger(new EFBlogRepository());
         public IActionResult Index()
         {
-            return View();
+            var values = bm.GetBlogListWithCategory();
+            return View(values);
         }
+        public IActionResult BlogReadAll(int id)
+        {
+            ViewBag.i = id;
+            var values = bm.GetBlogById(id);
+            return View(values);
+        }
+
     }
 }

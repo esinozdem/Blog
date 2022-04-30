@@ -19,6 +19,8 @@ namespace EntityLayer.Concrete
         public bool BlogStatus { get; set; }
         public int CategoryID { get; set; }
         public Category Category  { get; set; }
+        public int WriterID { get; set; }
+        public Writer Writer { get; set; }
 
         //bir bloğa birden fazla yorum yazılabilir.
         public List<Comment> Comments { get; set; }
