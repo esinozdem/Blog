@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -27,7 +28,7 @@ namespace CoreDemo
         {
             services.AddControllersWithViews();
 
-            services.AddSession();
+          
 
             //Bu metot sayesinde projemi proje sayesinde
             services.AddMvc(config =>
@@ -36,6 +37,25 @@ namespace CoreDemo
                     .RequireAuthenticatedUser()
                     .Build();
                 config.Filters.Add(new AuthorizeFilter(policy));
+            });
+            services.AddMvc();
+            services.AddAuthentication(
+                CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(x =>
+                {
+                    x.LoginPath = "/Login/Index";
+                });
+                
+                
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                //cookie Settings
+                options.Cookie.HttpOnly = true;
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(1);
+
+                options.LoginPath = "/Login/Index/";
+                options.SlidingExpiration = true;
             });
         }
 
@@ -56,8 +76,8 @@ namespace CoreDemo
             app.UseStatusCodePagesWithReExecute("/ErrorPage/Error1", "?code={0}");
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseSession();
-
+            //app.UseSession();
+            app.UseAuthentication();
             app.UseRouting();
 
             app.UseAuthorization();

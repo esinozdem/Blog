@@ -10,7 +10,7 @@ namespace CoreDemo.Controllers
     //En üste    [Authorize] eklediğim zaman tüm Actionları etkiliyorum.
     public class WriterController : Controller
     {
-        [AllowAnonymous]
+       
         public IActionResult Index()
         {
             return View();
@@ -23,6 +23,22 @@ namespace CoreDemo.Controllers
         public IActionResult WriterMail()
         {
             return View();
+        }
+
+        [AllowAnonymous]
+        public IActionResult Test()
+        {
+            return View();
+        }
+        [AllowAnonymous]
+        public PartialViewResult WriterNavbarPartial()
+        {
+            return PartialView();
+        }
+        [AllowAnonymous]
+        public PartialViewResult WriterFooterPartial()
+        {
+            return PartialView();
         }
     }
 }
