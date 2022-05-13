@@ -28,7 +28,7 @@ namespace CoreDemo
         {
             services.AddControllersWithViews();
 
-          
+
 
             //Bu metot sayesinde projemi proje sayesinde
             services.AddMvc(config =>
@@ -45,8 +45,8 @@ namespace CoreDemo
                 {
                     x.LoginPath = "/Login/Index";
                 });
-                
-                
+
+
 
             services.ConfigureApplicationCookie(options =>
             {
@@ -84,6 +84,12 @@ namespace CoreDemo
 
             app.UseEndpoints(endpoints =>
             {
+                //Scaffolding dosyasýndaki area kýsmýný tanýmladýk.
+                endpoints.MapControllerRoute(
+                 name: "areas",
+                 pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+               );
+
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");

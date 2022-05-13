@@ -16,6 +16,21 @@ namespace DataAccessLayer.Concrete
         {
             optionsBuilder.UseSqlServer("Server=DESKTOP-U32R22S\\S2019;database=CoreBlogDb;integrated security=true;");
         }
+        
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Message2>()
+                .HasOne(x => x.SenderUser)
+                .WithMany(y => y.WriterSender)
+                .HasForeignKey(z => z.SenderID)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+
+            modelBuilder.Entity<Message2>()
+                .HasOne(x => x.ReceiverUser)
+                .WithMany(y => y.WriterReceiver)
+                .HasForeignKey(z => z.ReceiverID)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+        }
 
         //Tablolarımı tanımlıyorum.
         public DbSet<About> Abouts { get; set; }
@@ -25,5 +40,11 @@ namespace DataAccessLayer.Concrete
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<Writer> Writers { get; set; }
         public DbSet<NewsLetter> NewsLetters { get; set; }
+        public DbSet<Blograyting> Blograytings { get; set; }
+        public DbSet<Notificition> Notificitions { get; set; }
+        public DbSet<Message> Messages { get; set; }
+        public DbSet<Message2> Messages2 { get; set; }
+        public DbSet<Admin> Admins { get; set; }
+
     }
 }

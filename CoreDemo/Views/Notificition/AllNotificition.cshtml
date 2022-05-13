@@ -1,0 +1,26 @@
+﻿@using EntityLayer.Concrete
+@model List<Notificition>
+@{
+    ViewData["Title"] = "AllNotificition";
+    Layout = "~/Views/Shared/WriterLayout.cshtml";
+}
+@*Tüm bildirimler görebilmek için oluşturduğumuz view*@
+<h1>Notifications</h1>
+
+<table class="table mdi-table-border">
+    <tr>
+        <th>#</th>
+        <th>Notification</th>
+        <th>Tarih</th>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>@item.NotificitionID</td>
+            <td>@item.NotificitionDetails</td>
+            <td>@item.NotificitionDate.ToShortDateString()</td>
+
+        </tr>
+    }
+        </tr>
+    </table>
+
